@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+
+<html class="shale-v1-light shale-v1-body" lang="en">
+    <head>
+        <title>UTM Robotics Email Signature Generator</title>
+        <meta viewport="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://logonoff.co/projects/v1/shale.css">
+    </head>
+
+    <body class="shale-v1-container">
+        <h1 class="shale-v1-h3"><strong>UTM Robotics Email Signatures</strong></h1>
+
+        <form id="signature-form" onsubmit="updateSignature(); return false;" class="shale-v1-card shale-v1-container" style="margin: 0;">
+            <div class="shale-v1-input">
+                <label for="name">Name</label>
+                <input type="text" id="name" name="name" required>
+            </div>
+
+            <div class="shale-v1-input">
+                <label for="position">Position</label>
+                <input type="text" id="position" name="position" required>
+            </div>
+
+            <div class="shale-v1-input">
+                <label for="pronouns">Pronouns</label>
+                <input type="text" id="pronouns" name="position" placeholder="they/them">
+            </div>
+
+            <div class="shale-v1-input">
+                <input type="checkbox" id="image" name="image" checked>
+                <label for="image">Include logo?</label>
+            </div>
+
+            <div>
+                <button class="shale-v1-button" type="submit">Generate Signature</button>
+            </div>
+        </form>
+
+        <em>copy paste this:</em>
+
+        <div style="border: black 1px solid; background: white; padding: 1rem; margin: 1rem 0;">
+            <div id="signature" contenteditable>
+                <p id="robotics-signature-id">
+                    <strong id="robotics-signature-name"></strong>
+                    <em id="robotics-signature-pronouns"></em>
+                    <br>
+                    <small><span id="robotics-signature-position"></span></small>
+                </p>
+                <p>
+                    <a id="robotics-signature" href="https://robotics-club.utm.utoronto.ca/"><br>UTM Robotics
+                        Club</a><br>
+                    <small>3359 Mississauga Rd, Mississauga, ON L5L 1C6</small><br>
+                    <small>Instagram: <a href="https://www.instagram.com/utm_robotics/">@utm_robotics</a></small><br>
+                </p>
+            </div>
+        </div>
+
+        <script>
+            const updateSignature = () => {
+                const name = document.getElementById('name').value;
+                const position = document.getElementById('position').value;
+                const pronouns = document.getElementById('pronouns').value || 'they/them';
+
+                document.getElementById('robotics-signature-name').innerText = name;
+                document.getElementById('robotics-signature-position').innerText = position;
+                document.getElementById('robotics-signature-pronouns').innerText = `(${pronouns})`;
+
+                const imageCheckbox = document.getElementById('image');
+                const signatureDiv = document.getElementById('robotics-signature');
+                const logo = document.createElement('img');
+                logo.src = 'https://i.imgur.com/X4eBmI3.png';
+                logo.alt = 'UTM Robotics';
+                logo.style.width = '64px';
+                logo.style.height = '64px';
+                logo.id = 'robotics-signature-logo';
+
+                if (imageCheckbox.checked) {
+                    document.getElementById('robotics-signature-logo')?.remove();
+                    signatureDiv.prepend(logo);
+                } else {
+                    const existingLogo = signatureDiv.querySelector('img');
+                    if (existingLogo) {
+                        existingLogo.remove();
+                    }
+                }
+            };
+        </script>
+
+    </body>
+
+</html>
